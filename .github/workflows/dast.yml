@@ -32,24 +32,24 @@ jobs:
     #   run: ./gradlew build -x test
 
     - name: Build and Start the Application with TestContainers
-        run: |
-          ./gradlew build -x test
-          docker-compose -f docker-compose.yml up -d # Ensure your app starts with Docker
+      run: |
+        ./gradlew build -x test
+        docker-compose -f docker-compose.yml up -d # Ensure your app starts with Docker
       
-      - name: Start ZAP in daemon mode
-        run: |
-          docker run -d --name zap -p 8081:8080 owasp/zap2docker-stable zap.sh -daemon -port 8080
+    - name: Start ZAP in daemon mode
+      run: |
+        docker run -d --name zap -p 8081:8080 owasp/zap2docker-stable zap.sh -daemon -port 8080
 
-      - name: Run ZAP Security Scan
-        run: |
-          docker exec zap zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://host.docker.internal:8080
+    - name: Run ZAP Security Scan
+      run: |
+        docker exec zap zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://host.docker.internal:8080
 
-      - name: Save SARIF report
-        run: |
-          docker exec zap zap-cli report -o /zap/reports/zap-report.sarif -f sarif
-          docker cp zap:/zap/reports/zap-report.sarif ./zap-report.sarif
+    - name: Save SARIF report
+      run: |
+        docker exec zap zap-cli report -o /zap/reports/zap-report.sarif -f sarif
+        docker cp zap:/zap/reports/zap-report.sarif ./zap-report.sarif
 
-      - name: Upload SARIF Report to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: zap-report.sarif
+    - name: Upload SARIF Report to GitHub Code Scanning
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: zap-report.sarif
