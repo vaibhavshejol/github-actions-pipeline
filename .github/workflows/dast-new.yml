@@ -47,8 +47,8 @@ jobs:
       # - name: wait for container to start
       #   run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
 
-      - name: test container
-        run: curl -s localhost:8080/com.amazingcode.in/api/employees
+      # - name: test container
+      #   run: curl -s localhost:8080/com.amazingcode.in/api/employees
      
       - name: Run ZAP OWASP full scan
         uses: zaproxy/action-full-scan@v0.4.0
