@@ -13,16 +13,6 @@ jobs:
       #missing only package:read?
     name: DAST Scan
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: root
-          POSTGRES_DB: employee-service-db
-        ports:
-          - 5433:5432
-        options: --health-cmd="pg_isready -U user" --health-timeout=30s --health-retries=3
 
     steps:
 
@@ -56,25 +46,14 @@ jobs:
       
       - run: docker rm github-action-pipeline | true && docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest      
 
-      - name: Run application container
-        run: docker run -d -p 8080:9090 --name github-action-pipeline \
-            -e DB_HOST=postgres \
-            -e DB_PORT=5432 \
-            -e DB_USER=postgres \
-            -e DB_PASSWORD=root \
-            -e DB_NAME=employee-service-db \
-            vaibhavshejol/github-actions-pipeline:latest
-      # - name: wait for container to start
-      #   run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
-
-      - name: Wait for 30 seconds
-        run: sleep 30
+      - name: Wait for 15 seconds
+        run: sleep 15
 
       - name: Application container logs
         run: docker logs github-action-pipeline
 
-      # - name: test container
-      #   run: curl -s localhost:8080/com.amazingcode.in/api/employees
+      - name: test container
+        run: curl -s localhost:8080/com.amazingcode.in/api/message
      
       - name: Run ZAP OWASP full scan
         uses: zaproxy/action-full-scan@v0.4.0
