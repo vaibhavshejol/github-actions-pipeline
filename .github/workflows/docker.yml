@@ -42,7 +42,8 @@ jobs:
         image: vaibhavshejol/github-actions-pipeline
         tags: v1, latest
         registry: docker.io
-        dockerfile: Dockerfile
+        # dockerfile: Dockerfile
+        file: ./docker-compose.yml
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         
