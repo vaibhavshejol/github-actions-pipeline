@@ -65,7 +65,7 @@ jobs:
 
     - name: Run ZAP Security Scan
       run: |
-        docker exec zap zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://host.docker.internal:8080
+        docker exec zap zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://host.docker.internal:8081
 
     # - name: Run ZAP OWASP full scan
     #   uses: zaproxy/action-full-scan@v0.4.0
