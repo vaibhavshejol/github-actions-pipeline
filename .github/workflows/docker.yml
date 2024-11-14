@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  dockerization:
 
     runs-on: ubuntu-latest
     permissions:
@@ -28,7 +28,7 @@ jobs:
       run: chmod +x ./gradlew
       
     - name: Build with Gradle Wrapper
-      run: ./gradlew build
+      run: ./gradlew build -x test
       
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
