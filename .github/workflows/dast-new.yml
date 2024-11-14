@@ -48,7 +48,7 @@ jobs:
       #   run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
 
       - name: Wait for 15 seconds
-        run: sleep 15
+        run: sleep 30
 
       # - name: test container
       #   run: curl -s localhost:8080/com.amazingcode.in/api/employees
