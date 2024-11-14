@@ -44,8 +44,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker rm github-action-pipeline | true && docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest      
 
-      - name: wait for container to start
-        run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
+      # - name: wait for container to start
+      #   run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
 
       - name: test container
         run: curl -s localhost:8080/com.amazingcode.in/api/employees
@@ -69,4 +69,3 @@ jobs:
         if: always()
         run: |
           docker stop github-action-pipeline && docker rm github-action-pipeline && docker container prune --force && docker image prune --force
-          
