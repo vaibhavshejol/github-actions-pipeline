@@ -41,11 +41,11 @@ jobs:
         path: '.'
         format: 'HTML'
         out: 'reports'
-        # args: "--failOnCVSS 7 --enableRetired"
+        args: "--failOnCVSS 7 --enableRetired"
 
     - name: Upload Depcheck Report
       uses: actions/upload-artifact@v3
       with:
          name: Depcheck report
-        #  path: ${{github.workspace}}/reports/dependency-check-report.html
-         path: reports/dependency-check-report.html
+         path: ${{github.workspace}}/reports/dependency-check-report.html
+        #  path: reports/dependency-check-report.html
