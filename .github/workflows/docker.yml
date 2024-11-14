@@ -37,7 +37,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build images with Docker Compose
-      run: docker-compose -f docker-compose.yml build
+      run: docker-compose build
 
     - name: Tag and push Docker images
       env:
