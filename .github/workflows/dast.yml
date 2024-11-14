@@ -57,7 +57,7 @@ jobs:
       
     - name: Start ZAP in daemon mode
       run: |
-        docker run -d --name zap -p 8081:8080 owasp/zap2docker zap.sh -daemon -port 8080
+        docker run -d --name zap -p 8081:8080 ghcr.io/zaproxy/zaproxy:stable zap.sh -daemon -port 8080
 
     - name: Run ZAP Security Scan
       run: |
