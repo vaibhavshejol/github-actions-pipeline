@@ -47,8 +47,11 @@ jobs:
       # - name: wait for container to start
       #   run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
 
-      - name: Wait for 15 seconds
+      - name: Wait for 30 seconds
         run: sleep 30
+
+      - name: Application container logs
+        run: docker logs github-action-pipeline
 
       # - name: test container
       #   run: curl -s localhost:8080/com.amazingcode.in/api/employees
