@@ -60,9 +60,9 @@ jobs:
         run: docker run -d -p 8080:9090 --name github-action-pipeline \
             -e DB_HOST=postgres \
             -e DB_PORT=5432 \
-            -e DB_USER=user \
-            -e DB_PASSWORD=password \
-            -e DB_NAME=mydb \
+            -e DB_USER=postgres \
+            -e DB_PASSWORD=root \
+            -e DB_NAME=employee-service-db \
             vaibhavshejol/github-actions-pipeline:latest
       # - name: wait for container to start
       #   run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:8080)" != "200" ]]; do sleep 5; done' || false
