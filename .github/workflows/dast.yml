@@ -53,14 +53,23 @@ jobs:
     #   run: |
     #     docker exec zap zap-cli quick-scan --self-contained --start-options '-config api.disablekey=true' http://host.docker.internal:9090
 
+    # - name: Start ZAP in daemon mode
+    #   run: |
+    #     docker run -d --name zap -p 8081:8080 ghcr.io/zaproxy/zaproxy:stable zap.sh -daemon -host 0.0.0.0 -port 8080
+
+    # - name: Run ZAP Security Scan
+    #   run: |
+    #     docker exec zap zap.sh -cmd -quickurl http://host.docker.internal:9090 -quickprogress -quickout /zap/wrk/zap-report.html
+        
     - name: Start ZAP in daemon mode
       run: |
-        docker run -d --name zap -p 8081:8080 ghcr.io/zaproxy/zaproxy:stable zap.sh -daemon -host 0.0.0.0 -port 8080
+        docker run -d --name zap -p 8081:8080 ghcr.io/zaproxy/zaproxy:stable zap.sh -daemon -host 0.0.0.0 -port 8080 -dir /zap/work
 
     - name: Run ZAP Security Scan
       run: |
-        docker exec zap zap.sh -cmd -quickurl http://host.docker.internal:9090 -quickprogress -quickout /zap/wrk/zap-report.html
-        
+        docker exec zap zap.sh -cmd -quickurl http://host.docker.internal:9090 -quickprogress -quickout /zap/work/zap-report.html -dir /zap/work
+    
+
     - name: Save SARIF report
       run: |
         docker exec zap zap-cli report -o /zap/reports/zap-report.sarif -f sarif
