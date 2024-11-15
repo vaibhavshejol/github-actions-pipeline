@@ -63,14 +63,21 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           target: 'http://localhost:8080'
           # cmd_options: '-a -j -l WARN -z "-addoninstallall" '
-          cmd_options: '-a -j -l WARN -r report_html.html -w report_md.md -J report_json.json -z "-addoninstallall" '
+          # cmd_options: '-a -j -l WARN -r report_html.html -w report_md.md -J report_json.json -z "-addoninstallall" '
+          cmd_options: '-a -j -l WARN -r report_html.html -o report_sarif.sarif -z "-addoninstallall"'
           allow_issue_writing: true
+
+      - name: Upload SARIF report
+        uses: actions/upload-artifact@v3
+        with:
+          name: DAST_Report.sarif
+          path: ${{ github.workspace }}/reports/report_sarif.sarif
 
       - name: Upload html report
         uses: actions/upload-artifact@v3
         with:
           name: DAST_Report.html
-          path: report_html.html
+          path: ${{ github.workspace }}/reports/report_html.html
 
       - name: stop docker
         if: always()
