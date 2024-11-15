@@ -39,7 +39,7 @@ jobs:
       with:
         project: 'github-actions-pipeline'
         path: '.'
-        format: 'SARIF,HTML'
+        format: 'ALL'
         out: 'reports'
         args: "--failOnCVSS 7 --enableRetired"
 
