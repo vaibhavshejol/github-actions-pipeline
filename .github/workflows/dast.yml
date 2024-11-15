@@ -64,7 +64,7 @@ jobs:
           target: 'http://localhost:8080'
           # cmd_options: '-a -j -l WARN -z "-addoninstallall" '
           # cmd_options: '-a -j -l WARN -r report_html.html -w report_md.md -J report_json.json -z "-addoninstallall" '
-          cmd_options: '-a -j -l WARN -r report_html.html -z "-addoninstallall"'
+          cmd_options: '-a -j -l WARN -r report_html.html -z "-addoninstallall" '
           allow_issue_writing: true
 
       - name: Upload html report
