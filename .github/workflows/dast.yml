@@ -45,8 +45,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Run application in docker container to scan with zap
-        run: docker rm github-action-pipeline | true && docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest      
+      - name: Run application in container to scan with ZAP
+        run: |
+          docker rm -f github-action-pipeline || true
+          docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest
 
       - name: Wait 15 seconds to start application
         run: sleep 15
