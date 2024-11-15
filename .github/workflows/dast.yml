@@ -45,15 +45,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       
-      - run: docker rm github-action-pipeline | true && docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest      
+      - name: Run application in docker container to scan with zap
+         run: docker rm github-action-pipeline | true && docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest      
 
-      - name: Wait for 15 seconds
+      - name: Wait 15 seconds to start application properly
         run: sleep 15
 
       - name: Application container logs
         run: docker logs github-action-pipeline
 
-      - name: test container
+      - name: Test container is running
         run: curl -s localhost:8080/com.amazingcode.in/api/message
      
       - name: Run ZAP OWASP full scan
@@ -64,7 +65,6 @@ jobs:
           target: 'http://localhost:8080'
           cmd_options: '-a -j -l WARN -z "-addoninstallall" '
           # cmd_options: '-a -j -l WARN -r report_html.html -w report_md.md -J report_json.json -z "-addoninstallall" '
-          # cmd_options: '-a -j -l WARN -r report_html.html -z "-addoninstallall" '
           allow_issue_writing: true
 
       - name: Upload html report
