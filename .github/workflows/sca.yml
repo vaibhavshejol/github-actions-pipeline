@@ -39,7 +39,7 @@ jobs:
       with:
         project: 'github-actions-pipeline'
         path: '.'
-        format: 'SARIF'
+        format: 'SARIF,HTML'
         out: 'reports'
         args: "--failOnCVSS 7 --enableRetired"
 
@@ -48,3 +48,9 @@ jobs:
       with:
          name: Depcheck SARIF report
          path: ${{ github.workspace }}/reports/dependency-check-report.sarif
+
+    - name: Upload HTML Report
+      uses: actions/upload-artifact@v3
+      with:
+         name: Depcheck HTML report
+         path: ${{ github.workspace }}/reports/dependency-check-report.html
