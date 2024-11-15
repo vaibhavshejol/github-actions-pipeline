@@ -48,7 +48,7 @@ jobs:
       - name: Run application in docker container to scan with zap
          run: docker rm github-action-pipeline | true && docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest      
 
-      - name: Wait 15 seconds to start application properly
+      - name: Wait 15 seconds to start application
         run: sleep 15
 
       - name: Application container logs
