@@ -83,5 +83,5 @@ jobs:
       - name: stop docker
         if: always()
         run: |
-          docker-comopse down
+          docker-compose down
           docker stop github-action-pipeline && docker rm github-action-pipeline && docker container prune --force && docker image prune --force
