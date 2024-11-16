@@ -52,7 +52,8 @@ jobs:
       
       - name: Run application in container to scan with ZAP
         run: |
-          docker rm -f github-action-pipeline github-action-pipeline-db || true
+          docker rm -f github-action-pipeline || ture
+          docker rm -f github-action-pipeline-db || true
           docker-compose up -d
         # docker run -d -p 8080:9090 --name github-action-pipeline vaibhavshejol/github-actions-pipeline:latest
 
@@ -84,4 +85,7 @@ jobs:
         if: always()
         run: |
           docker-compose down
-          docker stop github-action-pipeline && docker rm github-action-pipeline && docker container prune --force && docker image prune --force
+          docker stop github-action-pipeline || true
+          docker rm github-action-pipeline || true
+          docker container prune --force || true
+          docker image prune --force || true
